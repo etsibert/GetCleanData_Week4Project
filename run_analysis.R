@@ -44,21 +44,33 @@ names(filteredData)
 filteredData$ActivityName<-ActivityLabels[ActivityLabels[filteredData$labelId,1],2]
 # 4. Appropriately labels the data set with descriptive variable names
 cNames<-names(filteredData)
-TimeDomain<-function(x){gsub("^t","TimeDomain",x)}
-FreqDomain<-function(x){gsub("^f","FreqDomain",x)}
-RemoveDots<-function(x){gsub("\\.","",x)}
-cNames<-sapply(cNames, TimeDomain)
-cNames<-sapply(cNames, FreqDomain)
-cNames<-sapply(cNames, RemoveDots)
+cNameTransform1<-function(x){gsub("Body","_Body",x)}
+cNameTransform2<-function(x){gsub("Gravity","_Gravity",x)}
+cNameTransform3<-function(x){gsub("mean","_Mean",x)}
+cNameTransform4<-function(x){gsub("std","_STD",x)}
+cNameTransform5<-function(x){gsub("^t","TimeDomain",x)}
+cNameTransform6<-function(x){gsub("^f","FreqDomain",x)}
+cNameTransform7<-function(x){gsub("\\.","",x)}
+cNames<-sapply(cNames,cNameTransform1)
+cNames<-sapply(cNames,cNameTransform2)
+cNames<-sapply(cNames,cNameTransform3)
+cNames<-sapply(cNames,cNameTransform4)
+cNames<-sapply(cNames, cNameTransform5)
+cNames<-sapply(cNames, cNameTransform6)
+cNames<-sapply(cNames, cNameTransform7)
 cNames<-tolower(cNames)
 names(cNames)<-NULL
 cNames
 names(filteredData)<-cNames
+
 # 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 n<-ncol(filteredData)
 s<-filteredData[,c(1,3:n)]
 library(dplyr)
 tidy<-s%>% group_by(activityname,subjectid) %>% summarize_each(funs(mean))
+cNamesMes<-names(tidy)[3:length(names(tidy))]
+cNamesMes<-paste("AVGOf",cNamesMes)
+names(tidy)<-c(names(tidy)[1:2],cNamesMes)
 View(tidy)
 write.table(tidy,"tidy.txt", row.names = F)
 #x<-read.table("tidy.txt")
