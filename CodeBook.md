@@ -97,7 +97,7 @@ Time domain fetrues (Numeric):
 * AVGOf freqdomain_body_bodygyrojerkmag_meanfreq
 
 ##run_analysis.R Script Documentation
-The structure and data transformations contained in the run_analysis.R script are described below.
+The structure and data transformations contained in the [run_analysis.R](https://github.com/etsibert/GetCleanData_Week4Project/blob/master/run_analysis.R) script are described below.
 
 * Step: 1 - Merge the training and the test data sets to create one data set
 Set the working directory for the R session:
