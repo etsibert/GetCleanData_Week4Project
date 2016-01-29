@@ -11,7 +11,7 @@ The goal is to prepare a tidy data set that can be used for later analysis.
   
 ##Background information:
 Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced wearable computing algorithms to attract new users. 
-The data used in this project represents data collected from the accelerometers of Samsung Galaxy S smartphones during a study.
+The data used in this project represents data collected from the accelerometers of Samsung Galaxy S smartphones during a [study](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
 The [CodeBook.md](https://github.com/etsibert/GetCleanData_Week4Project/blob/master/CodeBook.md) file contains information about the Tidy data set features as well as the data transfomrations (R code) performed by the [run_analysis.R](https://github.com/etsibert/GetCleanData_Week4Project/blob/master/run_analysis.R) script file.
   
