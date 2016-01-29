@@ -3,7 +3,7 @@
 The Tidy data set contains 180 observations across 81 features listed below:
 
 * subjectid: integer, ranges from 1 to 30, it represents the Subject ID participating in the Wearable Study
-* activityname: character, represents the various activities performed by the subjects. The activityname values include:
+* activityname: string, represents the various activities performed by the subjects. The activityname values include:
   * WALKING 
   * WALKING UPSTAIRS 
   * WALKING DOWNSTAIRS
@@ -50,9 +50,9 @@ Time domain fetrues (Numeric):
 * AVGOf timedomain_gravityaccmag_std            
 * AVGOf timedomain_bodyaccjerkmag_mean           
 * AVGOf timedomain_bodyaccjerkmag_std            
-* AVGOf timedomain_bodygyromag_mean             
-* AVGOf timedomain_bodygyromag_std              
-* AVGOf timedomain_bodygyrojerkmag_mean          
+* AVGOf timedomain_bodygyromag_mean            
+* AVGOf timedomain_bodygyromag_std         
+* AVGOf timedomain_bodygyrojerkmag_mean    
 * AVGOf timedomain_bodygyrojerkmag_std
 
  Frequency domain features (Numeric):
