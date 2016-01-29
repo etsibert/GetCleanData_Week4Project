@@ -70,15 +70,23 @@ Add a new column in the Filtered data frame to contain the descriptive activity 
 filteredData$ActivityName<-ActivityLabels[ActivityLabels[filteredData$labelId,1],2]
 ```
 * Step 4: Appropriately label the data set with descriptive variable names
-Clean up the name of the variables to make them more human readable
+Clean up the name of the variables (through a series of transforms) to make them more human readable
 ```R
 cNames<-names(filteredData)
-TimeDomain<-function(x){gsub("^t","TimeDomain",x)}
-FreqDomain<-function(x){gsub("^f","FreqDomain",x)}
-RemoveDots<-function(x){gsub("\\.","",x)}
-cNames<-sapply(cNames, TimeDomain)
-cNames<-sapply(cNames, FreqDomain)
-cNames<-sapply(cNames, RemoveDots)
+cNameTransform1<-function(x){gsub("Body","_Body",x)}
+cNameTransform2<-function(x){gsub("Gravity","_Gravity",x)}
+cNameTransform3<-function(x){gsub("mean","_Mean",x)}
+cNameTransform4<-function(x){gsub("std","_STD",x)}
+cNameTransform5<-function(x){gsub("^t","TimeDomain",x)}
+cNameTransform6<-function(x){gsub("^f","FreqDomain",x)}
+cNameTransform7<-function(x){gsub("\\.","",x)}
+cNames<-sapply(cNames,cNameTransform1)
+cNames<-sapply(cNames,cNameTransform2)
+cNames<-sapply(cNames,cNameTransform3)
+cNames<-sapply(cNames,cNameTransform4)
+cNames<-sapply(cNames, cNameTransform5)
+cNames<-sapply(cNames, cNameTransform6)
+cNames<-sapply(cNames, cNameTransform7)
 cNames<-tolower(cNames)
 names(cNames)<-NULL
 names(filteredData)<-cNames
@@ -86,23 +94,27 @@ names(filteredData)<-cNames
 Sample variable names are:
 ```R
 > cNames
- [1] "subjectid"                             "labelid"                               "timedomainbodyaccmeanx"                "timedomainbodyaccmeany"                "timedomainbodyaccmeanz"               
- [6] "timedomainbodyaccstdx"                 "timedomainbodyaccstdy"                 "timedomainbodyaccstdz"                 "timedomaingravityaccmeanx"             "timedomaingravityaccmeany"            
-[11] "timedomaingravityaccmeanz"             "timedomaingravityaccstdx"              "timedomaingravityaccstdy"              "timedomaingravityaccstdz"              "timedomainbodyaccjerkmeanx"           
-[16] "timedomainbodyaccjerkmeany"            "timedomainbodyaccjerkmeanz"            "timedomainbodyaccjerkstdx"             "timedomainbodyaccjerkstdy"             "timedomainbodyaccjerkstdz"            
-[21] "timedomainbodygyromeanx"               "timedomainbodygyromeany"               "timedomainbodygyromeanz"               "timedomainbodygyrostdx"                "timedomainbodygyrostdy"               
-[26] "timedomainbodygyrostdz"                "timedomainbodygyrojerkmeanx"           "timedomainbodygyrojerkmeany"           "timedomainbodygyrojerkmeanz"           "timedomainbodygyrojerkstdx"           
-[31] "timedomainbodygyrojerkstdy"            "timedomainbodygyrojerkstdz"            "timedomainbodyaccmagmean"              "timedomainbodyaccmagstd"               "timedomaingravityaccmagmean"          
-[36] "timedomaingravityaccmagstd"            "timedomainbodyaccjerkmagmean"          "timedomainbodyaccjerkmagstd"           "timedomainbodygyromagmean"             "timedomainbodygyromagstd"             
-[41] "timedomainbodygyrojerkmagmean"         "timedomainbodygyrojerkmagstd"          "freqdomainbodyaccmeanx"                "freqdomainbodyaccmeany"                "freqdomainbodyaccmeanz"               
-[46] "freqdomainbodyaccstdx"                 "freqdomainbodyaccstdy"                 "freqdomainbodyaccstdz"                 "freqdomainbodyaccmeanfreqx"            "freqdomainbodyaccmeanfreqy"           
-[51] "freqdomainbodyaccmeanfreqz"            "freqdomainbodyaccjerkmeanx"            "freqdomainbodyaccjerkmeany"            "freqdomainbodyaccjerkmeanz"            "freqdomainbodyaccjerkstdx"            
-[56] "freqdomainbodyaccjerkstdy"             "freqdomainbodyaccjerkstdz"             "freqdomainbodyaccjerkmeanfreqx"        "freqdomainbodyaccjerkmeanfreqy"        "freqdomainbodyaccjerkmeanfreqz"       
-[61] "freqdomainbodygyromeanx"               "freqdomainbodygyromeany"               "freqdomainbodygyromeanz"               "freqdomainbodygyrostdx"                "freqdomainbodygyrostdy"               
-[66] "freqdomainbodygyrostdz"                "freqdomainbodygyromeanfreqx"           "freqdomainbodygyromeanfreqy"           "freqdomainbodygyromeanfreqz"           "freqdomainbodyaccmagmean"             
-[71] "freqdomainbodyaccmagstd"               "freqdomainbodyaccmagmeanfreq"          "freqdomainbodybodyaccjerkmagmean"      "freqdomainbodybodyaccjerkmagstd"       "freqdomainbodybodyaccjerkmagmeanfreq" 
-[76] "freqdomainbodybodygyromagmean"         "freqdomainbodybodygyromagstd"          "freqdomainbodybodygyromagmeanfreq"     "freqdomainbodybodygyrojerkmagmean"     "freqdomainbodybodygyrojerkmagstd"     
-[81] "freqdomainbodybodygyrojerkmagmeanfreq" "activityname" 
+ [1] "subjectid"                                "labelid"                                  "timedomain_bodyacc_meanx"                 "timedomain_bodyacc_meany"                
+ [5] "timedomain_bodyacc_meanz"                 "timedomain_bodyacc_stdx"                  "timedomain_bodyacc_stdy"                  "timedomain_bodyacc_stdz"                 
+ [9] "timedomain_gravityacc_meanx"              "timedomain_gravityacc_meany"              "timedomain_gravityacc_meanz"              "timedomain_gravityacc_stdx"              
+[13] "timedomain_gravityacc_stdy"               "timedomain_gravityacc_stdz"               "timedomain_bodyaccjerk_meanx"             "timedomain_bodyaccjerk_meany"            
+[17] "timedomain_bodyaccjerk_meanz"             "timedomain_bodyaccjerk_stdx"              "timedomain_bodyaccjerk_stdy"              "timedomain_bodyaccjerk_stdz"             
+[21] "timedomain_bodygyro_meanx"                "timedomain_bodygyro_meany"                "timedomain_bodygyro_meanz"                "timedomain_bodygyro_stdx"                
+[25] "timedomain_bodygyro_stdy"                 "timedomain_bodygyro_stdz"                 "timedomain_bodygyrojerk_meanx"            "timedomain_bodygyrojerk_meany"           
+[29] "timedomain_bodygyrojerk_meanz"            "timedomain_bodygyrojerk_stdx"             "timedomain_bodygyrojerk_stdy"             "timedomain_bodygyrojerk_stdz"            
+[33] "timedomain_bodyaccmag_mean"               "timedomain_bodyaccmag_std"                "timedomain_gravityaccmag_mean"            "timedomain_gravityaccmag_std"            
+[37] "timedomain_bodyaccjerkmag_mean"           "timedomain_bodyaccjerkmag_std"            "timedomain_bodygyromag_mean"              "timedomain_bodygyromag_std"              
+[41] "timedomain_bodygyrojerkmag_mean"          "timedomain_bodygyrojerkmag_std"           "freqdomain_bodyacc_meanx"                 "freqdomain_bodyacc_meany"                
+[45] "freqdomain_bodyacc_meanz"                 "freqdomain_bodyacc_stdx"                  "freqdomain_bodyacc_stdy"                  "freqdomain_bodyacc_stdz"                 
+[49] "freqdomain_bodyacc_meanfreqx"             "freqdomain_bodyacc_meanfreqy"             "freqdomain_bodyacc_meanfreqz"             "freqdomain_bodyaccjerk_meanx"            
+[53] "freqdomain_bodyaccjerk_meany"             "freqdomain_bodyaccjerk_meanz"             "freqdomain_bodyaccjerk_stdx"              "freqdomain_bodyaccjerk_stdy"             
+[57] "freqdomain_bodyaccjerk_stdz"              "freqdomain_bodyaccjerk_meanfreqx"         "freqdomain_bodyaccjerk_meanfreqy"         "freqdomain_bodyaccjerk_meanfreqz"        
+[61] "freqdomain_bodygyro_meanx"                "freqdomain_bodygyro_meany"                "freqdomain_bodygyro_meanz"                "freqdomain_bodygyro_stdx"                
+[65] "freqdomain_bodygyro_stdy"                 "freqdomain_bodygyro_stdz"                 "freqdomain_bodygyro_meanfreqx"            "freqdomain_bodygyro_meanfreqy"           
+[69] "freqdomain_bodygyro_meanfreqz"            "freqdomain_bodyaccmag_mean"               "freqdomain_bodyaccmag_std"                "freqdomain_bodyaccmag_meanfreq"          
+[73] "freqdomain_body_bodyaccjerkmag_mean"      "freqdomain_body_bodyaccjerkmag_std"       "freqdomain_body_bodyaccjerkmag_meanfreq"  "freqdomain_body_bodygyromag_mean"        
+[77] "freqdomain_body_bodygyromag_std"          "freqdomain_body_bodygyromag_meanfreq"     "freqdomain_body_bodygyrojerkmag_mean"     "freqdomain_body_bodygyrojerkmag_std"     
+[81] "freqdomain_body_bodygyrojerkmag_meanfreq" "activityname"
 ```
 
 * Step 5: Create an new, tidy data set with the average of each variable for each activity and each subject
@@ -112,6 +124,9 @@ n<-ncol(filteredData)
 s<-filteredData[,c(1,3:n)]
 library(dplyr)
 tidy<-s %>% group_by(activityname,subjectid) %>% summarize_each(funs(mean))
+cNamesMes<-names(tidy)[3:length(names(tidy))]
+cNamesMes<-paste("AVGOf",cNamesMes)
+names(tidy)<-c(names(tidy)[1:2],cNamesMes)
 View(tidy)
 ```
 Export the Tidy data frame for submission
