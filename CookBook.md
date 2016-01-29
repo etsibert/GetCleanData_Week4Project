@@ -1,7 +1,3 @@
----
-title: "CodeBook.m"
-output: html_document
----
 
 #Code Book
 The Tidy data set contains 180 observations across 81 features listed below:
